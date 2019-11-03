@@ -6,8 +6,7 @@ import { showVoteMessage, hideMessage } from "../reducers/notificationReducer";
 let timer = null;
 
 const AnecdoteList = ({
-	anecdotes,
-	filter,
+	visibleAnecdotes,
 	voteAnecdote,
 	showVoteMessage,
 	hideMessage
@@ -24,32 +23,32 @@ const AnecdoteList = ({
 
 	return (
 		<>
-			{anecdotes
-				.filter(anecdote =>
-					anecdote.content
-						.toLowerCase()
-						.includes(filter.toLowerCase())
-				)
-				.sort(function(a, b) {
-					return b.votes - a.votes;
-				})
-				.map(anecdote => (
-					<div key={anecdote.id}>
-						<div>{anecdote.content}</div>
-						<div>
-							has {anecdote.votes}
-							<button onClick={() => vote(anecdote)}>vote</button>
-						</div>
+			{visibleAnecdotes.map(anecdote => (
+				<div key={anecdote.id}>
+					<div>{anecdote.content}</div>
+					<div>
+						has {anecdote.votes}
+						<button onClick={() => vote(anecdote)}>vote</button>
 					</div>
-				))}
+				</div>
+			))}
 		</>
 	);
 };
 
+const filterAnecdotes = ({ anecdotes, filter }) => {
+	return anecdotes
+		.filter(anecdote =>
+			anecdote.content.toLowerCase().includes(filter.toLowerCase())
+		)
+		.sort(function(a, b) {
+			return b.votes - a.votes;
+		});
+};
+
 const mapStateToProps = state => {
 	return {
-		anecdotes: state.anecdotes,
-		filter: state.filter
+		visibleAnecdotes: filterAnecdotes(state)
 	};
 };
 
