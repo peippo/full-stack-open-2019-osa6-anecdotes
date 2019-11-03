@@ -25,7 +25,11 @@ const AnecdoteList = ({
 	return (
 		<>
 			{anecdotes
-				.filter(anecdote => anecdote.content.includes(filter))
+				.filter(anecdote =>
+					anecdote.content
+						.toLowerCase()
+						.includes(filter.toLowerCase())
+				)
 				.sort(function(a, b) {
 					return b.votes - a.votes;
 				})

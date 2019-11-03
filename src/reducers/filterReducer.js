@@ -4,7 +4,7 @@ const filterReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case "CHANGE_FILTER":
 			return action.data.term;
-		case "HIDE_MESSAGE":
+		case "CLEAR_FILTER":
 			return "";
 		default:
 			return state;
