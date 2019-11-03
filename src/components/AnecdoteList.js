@@ -5,14 +5,20 @@ import { showVoteMessage, hideMessage } from "../reducers/notificationReducer";
 
 let timer = null;
 
-const AnecdoteList = ({ anecdotes, filter }) => {
+const AnecdoteList = ({
+	anecdotes,
+	filter,
+	voteAnecdote,
+	showVoteMessage,
+	hideMessage
+}) => {
 	const vote = anecdote => {
-		//store.dispatch(voteAnecdote(anecdote.id));
-		//store.dispatch(showVoteMessage(anecdote.content));
+		voteAnecdote(anecdote.id);
+		showVoteMessage(anecdote.content);
 
 		clearTimeout(timer);
 		timer = setTimeout(() => {
-			//store.dispatch(hideMessage());
+			hideMessage();
 		}, 5000);
 	};
 
@@ -43,5 +49,14 @@ const mapStateToProps = state => {
 	};
 };
 
-const ConnectedAnecdoteList = connect(mapStateToProps)(AnecdoteList);
+const mapDispatchToProps = {
+	voteAnecdote,
+	showVoteMessage,
+	hideMessage
+};
+
+const ConnectedAnecdoteList = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(AnecdoteList);
 export default ConnectedAnecdoteList;

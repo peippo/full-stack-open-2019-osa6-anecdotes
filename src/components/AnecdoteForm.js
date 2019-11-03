@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { createAnecdote } from "../reducers/anecdoteReducer";
 import {
 	showCreateMessage,
@@ -7,17 +8,17 @@ import {
 
 let timer = null;
 
-const AnecdoteForm = ({ store }) => {
+const AnecdoteForm = ({ createAnecdote, showCreateMessage, hideMessage }) => {
 	const addAnecdote = event => {
 		event.preventDefault();
 		const content = event.target.anecdote.value;
 		event.target.anecdote.value = "";
-		store.dispatch(createAnecdote(content));
-		store.dispatch(showCreateMessage(content));
+		createAnecdote(content);
+		showCreateMessage(content);
 
 		clearTimeout(timer);
 		timer = setTimeout(() => {
-			store.dispatch(hideMessage());
+			hideMessage();
 		}, 5000);
 	};
 
@@ -34,4 +35,14 @@ const AnecdoteForm = ({ store }) => {
 	);
 };
 
-export default AnecdoteForm;
+const mapDispathToProps = {
+	createAnecdote,
+	showCreateMessage,
+	hideMessage
+};
+
+const ConnectedAnecdoteForm = connect(
+	null,
+	mapDispathToProps
+)(AnecdoteForm);
+export default ConnectedAnecdoteForm;
