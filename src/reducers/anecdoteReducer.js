@@ -1,5 +1,3 @@
-const getId = () => (100000 * Math.random()).toFixed(0);
-
 export const voteAnecdote = id => {
 	return {
 		type: "VOTE",
@@ -9,12 +7,10 @@ export const voteAnecdote = id => {
 	};
 };
 
-export const createAnecdote = content => {
+export const createAnecdote = data => {
 	return {
 		type: "NEW_ANECDOTE",
-		data: {
-			content
-		}
+		data
 	};
 };
 
@@ -40,12 +36,7 @@ const anecdoteReducer = (state = [], action) => {
 				anecdote.id !== id ? anecdote : modifiedAnecdote
 			);
 		case "NEW_ANECDOTE":
-			const newAnecdote = {
-				content: action.data.content,
-				id: getId(),
-				votes: 0
-			};
-			return [...state, newAnecdote];
+			return [...state, action.data];
 		default:
 			return state;
 	}
