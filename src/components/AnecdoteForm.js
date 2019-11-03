@@ -5,7 +5,6 @@ import {
 	showCreateMessage,
 	hideMessage
 } from "../reducers/notificationReducer";
-import anecdoteService from "../services/anecdotes";
 
 let timer = null;
 
@@ -14,8 +13,7 @@ const AnecdoteForm = ({ createAnecdote, showCreateMessage, hideMessage }) => {
 		event.preventDefault();
 		const content = event.target.anecdote.value;
 		event.target.anecdote.value = "";
-		const newAnecdote = await anecdoteService.createNew(content);
-		createAnecdote(newAnecdote);
+		createAnecdote(content);
 		showCreateMessage(content);
 
 		clearTimeout(timer);
