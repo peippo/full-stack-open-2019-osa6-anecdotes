@@ -6,6 +6,7 @@ let timer = null;
 
 const AnecdoteList = ({ store }) => {
 	const anecdotes = store.getState().anecdotes;
+	const filter = store.getState().filter;
 
 	const vote = anecdote => {
 		store.dispatch(voteAnecdote(anecdote.id));
@@ -20,6 +21,7 @@ const AnecdoteList = ({ store }) => {
 	return (
 		<>
 			{anecdotes
+				.filter(anecdote => anecdote.content.includes(filter))
 				.sort(function(a, b) {
 					return b.votes - a.votes;
 				})
