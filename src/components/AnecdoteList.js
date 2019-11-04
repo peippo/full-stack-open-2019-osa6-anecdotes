@@ -12,7 +12,7 @@ const AnecdoteList = ({
 	hideMessage
 }) => {
 	const vote = anecdote => {
-		voteAnecdote(anecdote.id);
+		voteAnecdote(anecdote);
 		showVoteMessage(anecdote.content);
 
 		clearTimeout(timer);

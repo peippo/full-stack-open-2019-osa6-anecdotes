@@ -35,7 +35,7 @@ const AnecdoteForm = ({ createAnecdote, showCreateMessage, hideMessage }) => {
 	);
 };
 
-const mapDispathToProps = {
+const mapDispatchToProps = {
 	createAnecdote,
 	showCreateMessage,
 	hideMessage
@@ -43,6 +43,6 @@ const mapDispathToProps = {
 
 const ConnectedAnecdoteForm = connect(
 	null,
-	mapDispathToProps
+	mapDispatchToProps
 )(AnecdoteForm);
 export default ConnectedAnecdoteForm;
