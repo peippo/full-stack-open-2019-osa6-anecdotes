@@ -2,38 +2,29 @@ const initialState = "";
 
 const notificationReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case "SHOW_VOTE_MESSAGE":
-			return `You voted ${action.data.message}`;
-		case "SHOW_CREATE_MESSAGE":
-			return `You created anecdote "${action.data.message}"`;
-		case "HIDE_MESSAGE":
+		case "SHOW_NOTIFICATION":
+			return action.data.message;
+		case "HIDE_NOTIFICATION":
 			return "";
 		default:
 			return state;
 	}
 };
 
-export const showVoteMessage = message => {
-	return {
-		type: "SHOW_VOTE_MESSAGE",
-		data: {
-			message
-		}
-	};
-};
+export const showNotification = (message, timeout = 5) => {
+	return dispatch => {
+		dispatch({
+			type: "SHOW_NOTIFICATION",
+			data: {
+				message
+			}
+		});
 
-export const showCreateMessage = message => {
-	return {
-		type: "SHOW_CREATE_MESSAGE",
-		data: {
-			message
-		}
-	};
-};
-
-export const hideMessage = () => {
-	return {
-		type: "HIDE_MESSAGE"
+		setTimeout(() => {
+			dispatch({
+				type: "HIDE_NOTIFICATION"
+			});
+		}, timeout * 1000);
 	};
 };
 
